@@ -1,0 +1,43 @@
+import psycopg2
+import json
+
+
+hostname = ''
+database = ''
+port = 123
+username = ''
+password = ''
+
+# SQL connection variables
+conn = psycopg2.connect(host=hostname, database= database, port=port, user=username, password=password)
+cur = conn.cursor()
+"""
+Practice creating queries to access certain information from the database.
+
+"""
+def select_table():
+    sql = """ SELECT first_name FROM actor ;"""
+    cur.execute(sql)
+    results = cur.fetchall()
+    print(results)
+    
+def update_table():
+    sql = """ UPDATE actor SET first_name = 'Nikkia', last_name = 'Theodule'
+WHERE actor_id = 4;"""
+    cur.execute(sql)
+    conn.commit() 
+    print('The row has been updated.')
+
+def insert_into_table():
+    sql = """ INSERT INTO actor (first_name, last_name)
+VALUES ('Hunter', 'Schafer');"""
+    cur.execute(sql)
+    conn.commit() 
+    print('A row has been added.')
+   
+    
+if __name__ == '__main__':
+    #select_table()
+    update_table()
+    insert_into_table()
+    conn.close()
